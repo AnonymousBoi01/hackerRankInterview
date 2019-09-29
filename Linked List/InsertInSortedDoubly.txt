@@ -1,0 +1,30 @@
+DoublyLinkedListNode* sortedInsert(DoublyLinkedListNode* head, int data) {
+        int i;
+        DoublyLinkedListNode *m,*t1,*n;
+        n = new DoublyLinkedListNode(data);
+
+        if(head == NULL)
+            return n;
+
+        n->next = head;
+        head->prev = n;
+        head = n;
+        m = n;
+
+        while(m->next != NULL)
+            m=m->next;
+            
+        t1 = m;
+        for(; n!=NULL; n=n->next) { 
+
+            for(m = t1; m->prev != NULL; m=m->prev) {  
+                if(m->prev->data>m->data) {
+                    i=m->prev->data;
+                    m->prev->data=m->data;
+                    m->data=i;
+                }
+            }
+        } 
+        return head;  
+}
+
