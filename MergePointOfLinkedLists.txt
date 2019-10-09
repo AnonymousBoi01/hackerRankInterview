@@ -1,0 +1,19 @@
+int findMergeNode(SinglyLinkedListNode* headA, SinglyLinkedListNode* headB) {
+    SinglyLinkedListNode *tempA;
+    SinglyLinkedListNode *tempB;
+    
+   tempA=headA;
+    
+    while(tempA) {
+        tempB=headB;
+        while(tempB) {
+            if(tempA==tempB) {
+                return tempA->data;
+            }
+            else
+                tempB=tempB->next;
+        }
+        tempA=tempA->next;
+    }
+    return 0;
+}
