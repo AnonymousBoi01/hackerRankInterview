@@ -1,0 +1,20 @@
+ListNode* Solution::sortList(ListNode* A) {
+    struct ListNode *curr=A,*rem;
+   vector<int> s;
+   int cnt=0;
+   while(curr!=NULL){
+       s.push_back(curr->val);
+       rem=curr;
+       curr=curr->next;
+       free(rem);
+       cnt++;
+   }
+  sort(s.begin(),s.end());
+ for(int i=0;i<cnt-1;i++){
+     if(cnt==1)
+     cout<<s[i]<<" ";
+     else
+     cout<<s[i]<<" "<<"->"<<" ";
+ } 
+  cout<<s[cnt-1]<<" ";
+}
