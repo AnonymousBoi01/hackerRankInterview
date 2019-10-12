@@ -1,0 +1,117 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+    static class Node {
+        
+        int x;
+        int y;
+        int steps = 0;
+        
+        Node(int x, int y, int s){
+            this.x = x;
+            this.y = y;
+            this.steps = s;
+        }
+    }
+    
+    public static void main(String[] args) {
+        
+        HashMap<String, Integer> visitedMap = new HashMap<String, Integer>();
+        
+        Scanner in = new Scanner(System.in);
+        
+        int n = in.nextInt();
+        
+        if(n<1 || n>100){
+            return;
+        }
+        
+        in.nextLine();
+        
+        String ar[] = new String[n];
+        
+        
+        for(int i=0; i<n; i++){
+            ar[i] = in.nextLine();
+            
+        }
+        
+        int a = in.nextInt();
+        int b = in.nextInt();
+        int c = in.nextInt();
+        int d = in.nextInt();
+        
+        int grid[][] = new int[n][n];
+        
+        for(int i=0; i<n; i++){
+            char[] str = ar[i].toCharArray();
+            for( int j=0; j<n; j++){
+                if( str[j] == '.'){
+                    grid[i][j] = 1;
+                }
+                else{
+                    grid[i][j] = 0;
+                }
+                
+            }
+            
+        }
+        
+        Queue<Node> q = new LinkedList<Node>();
+        q.add( new Node(a,b, 0) );
+        visitedMap.put(a+"_"+b, 1);
+        int res = 0;
+        while( !q.isEmpty() ){
+            
+            Node dest = q.remove();
+            //visitedMap.put(dest.x+"_"+dest.y, 1);
+            
+            if(dest.x == c && dest.y == d ){
+                res = dest.steps;
+                //because its DFS break at first result. it will be minimum
+                break;
+            }
+            else{
+                int s = dest.steps;
+                int i = dest.x-1, j=dest.y;
+                while( i>=0 && grid[i][j] == 1 ){
+                    if( ! visitedMap.containsKey( i+"_"+j )){
+                        visitedMap.put( i+"_"+j, 1 );
+                        q.add(new Node(i, j, s+1));
+                    }
+                    i--;
+                }
+                i = dest.x+1; j=dest.y;
+                while( i<n && grid[i][j] == 1 ){
+                    if( ! visitedMap.containsKey( i+"_"+j )){
+                        visitedMap.put( i+"_"+j, 1 );
+                        q.add(new Node(i, j, s+1));
+                    }
+                    i++;
+                }
+                i = dest.x; j=dest.y-1;
+                while( j>=0 && grid[i][j] == 1 ){
+                    if( ! visitedMap.containsKey( i+"_"+j )){
+                        visitedMap.put( i+"_"+j, 1 );
+                        q.add(new Node(i, j, s+1));
+                    }
+                    j--;
+                }
+                i = dest.x; j=dest.y+1;
+                while( j<n && grid[i][j] == 1 ){
+                    if( ! visitedMap.containsKey( i+"_"+j )){
+                        visitedMap.put( i+"_"+j, 1 );
+                        q.add(new Node(i, j, s+1));
+                    }
+                    j++;
+                }
+            }
+            
+            
+        }
+        
+        System.out.println(res);
+    }
+}
