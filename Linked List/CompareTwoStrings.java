@@ -1,5 +1,3 @@
-// Java program to compare two strings represented as a linked list
-
 class LinkedList {
 
 	Node head; // head of list
